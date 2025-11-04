@@ -1,0 +1,55 @@
+[project]
+name = "iqcc_calibration_tools"
+version = "0.1.0"
+description = "calibration, research and integration tools for IQCC"
+readme = "README.md"
+authors = [
+    {name = "Tom Dvir", email = "tom.dvir@quantum-machines.co"},
+    {name = "Shlomi Matityahu", email = "Shlomi.Matityahu@quantum-machines.co"},
+    {name = "Akiva Feintuch", email = "akiva@quantum-machines.co"},    
+    {name = "Arthur Strauss", email = "Arthur.Strauss@quantum-machines.co"},
+    {name = "Omrie Ovdat", email = "omrie.ovdat@quantum-machines.co"}
+    
+]
+license = {text = "BSD-3-Clause"}
+keywords = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.11,<=3.12"
+dependencies = [
+    "quam>=0.4.2,<0.5.0",
+    "qualang-tools==0.20.1",
+    "xarray",
+    "lmfit",
+    "tqdm",
+    "qualibrate>=0.2.0,<0.4.0",
+    "qualibrate-config==0.1.8",
+    "qm-qua==1.2.3",
+    "ipykernel>=6.29.3,<7.0.0",
+    "more-itertools",
+    "qiskit==2.0.0",
+    "pylatexenc",
+    "iqcc-cloud-client", 
+    "iqcc-qualibrate2cloud",
+ #  "qualibrate-lab-notebook @ git+https://github.com/i-qcc/qualibrate-lab-notebook.git@main",
+    "quam-builder@git+https://github.com/qua-platform/quam-builder.git",
+    "qualibration-libs@git+https://github.com/qua-platform/qualibration-libs.git",
+    "betterproto>=2.0.0b7", # becuase qua 1.2.3 requires this pre-release version 
+
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["iqcc_calibration_tools"]
+
+# [tool.uv]
+# prerelease = "allow"
