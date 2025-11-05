@@ -21,7 +21,7 @@ from qualibration_libs.data import XarrayDataFetcher
 from iqcc_calibration_tools.storage.iqcc_cloud_data_storage_utils.download_state_and_wiring import download_state_and_wiring
 
 # %% {Node initialisation}
-description = """Init and shuffle the QUAM state for the Qualibrate challenge."""
+description = """Init and shuffle the QUAM state for the Qualibrate challenge. """
 
 class Parameters(NodeParameters):
     qubits: Optional[List[str]] = ["qD1", "qD2"]
