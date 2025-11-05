@@ -22,7 +22,7 @@ from calibration_utils.single_qubit_randomized_benchmarking import (
     plot_raw_data_with_fit,
     Parameters as RBParameters,
 )
-from iqcc_calibration_tools import get_qubits
+
 from qualibration_libs.runtime import simulate_and_plot
 from qualibration_libs.data import XarrayDataFetcher
 
@@ -56,6 +56,24 @@ State update:
     - The averaged single qubit gate fidelity: qubit.gate_fidelity["averaged"].
 """
 
+def _get_qubits(machine, node_parameters):
+    if node_parameters.qubits is None or node_parameters.qubits == "":
+        qubits = machine.active_qubits
+    else:
+        qubits = [machine.qubits[q] for q in node_parameters.qubits]
+
+    return qubits
+
+
+def get_qubits(node, node_parameters=None):
+    if node_parameters is None:
+        node_parameters = node.parameters
+
+    qubits = _get_qubits(node.machine, node_parameters)
+    from qualibration_libs.parameters.experiment import _make_batchable_list_from_multiplexed
+
+    return _make_batchable_list_from_multiplexed(qubits, node_parameters.multiplexed)
+
 
 class Parameters(NodeParameters):
     pass
@@ -75,6 +93,7 @@ parameters = RBParameters()
 @node.run_action
 def custom_param(node: QualibrationNode[Parameters, Quam]):
     # You can get type hinting in your IDE by typing parameters.
+    parameters.qubits = ["qC1", "qC2"]
     parameters.num_random_sequences = 300
     parameters.num_shots = 1
     parameters.max_circuit_depth = 1000
@@ -89,6 +108,7 @@ def custom_param(node: QualibrationNode[Parameters, Quam]):
 # Instantiate the QUAM class from the state file
 node.machine = Quam.load()
 
+parameters.qubits = node.machine.active_qubit_names
 
 # %% {Create_QUA_program}
 @node.run_action(skip_if=parameters.load_data_id is not None)
@@ -426,7 +446,7 @@ def upload_fidelities(node: QualibrationNode[Parameters, Quam]):
         response = requests.post(fidelity_url, json={"fidelity_score": fidelity})
         return response.json()
 
-    print(update_fidelity(average_fidelity))
+    print(update_fidelity(fidelity))
 
 
 # %% {Save_results}
