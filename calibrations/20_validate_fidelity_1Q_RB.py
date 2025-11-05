@@ -93,10 +93,9 @@ parameters = RBParameters()
 @node.run_action
 def custom_param(node: QualibrationNode[Parameters, Quam]):
     # You can get type hinting in your IDE by typing parameters.
-    parameters.qubits = ["qC1", "qC2"]
     parameters.num_random_sequences = 300
     parameters.num_shots = 1
-    parameters.max_circuit_depth = 1000
+    parameters.max_circuit_depth = 1024
     parameters.log_scale = True
     parameters.use_state_discrimination = True
     parameters.reset_type = "thermal"
@@ -446,7 +445,7 @@ def upload_fidelities(node: QualibrationNode[Parameters, Quam]):
         response = requests.post(fidelity_url, json={"fidelity_score": fidelity})
         return response.json()
 
-    print(update_fidelity(fidelity))
+    print(update_fidelity(average_fidelity))
 
 
 # %% {Save_results}

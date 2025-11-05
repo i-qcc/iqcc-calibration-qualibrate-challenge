@@ -5,15 +5,15 @@ from qualibration_libs.parameters import QubitsExperimentNodeParameters, CommonN
 
 
 class NodeSpecificParameters(RunnableParameters):
-    use_state_discrimination: bool = False
+    use_state_discrimination: bool = True
     """Perform qubit state discrimination. Default is True."""
     use_strict_timing: bool = False
     """Use strict timing in the QUA program. Default is False."""
-    num_random_sequences: int = 1000
+    num_random_sequences: int = 500
     """Number of random RB sequences. Default is 100."""
     num_shots: int = 1
     """Number of averages. Default is 20."""
-    max_circuit_depth: int = 1000
+    max_circuit_depth: int = 1024
     """Maximum circuit depth (number of Clifford gates). Default is 1000."""
     log_scale: bool = True
     """Use log scale for the circuit depth. Default is True."""
@@ -21,9 +21,6 @@ class NodeSpecificParameters(RunnableParameters):
     """Delta clifford (number of Clifford gates between the RB sequences). Default is 20."""
     seed: Optional[int] = None
     """Seed for the random number generator. Default is None."""
-    log_scale: bool = False
-    """Use log scale for the circuit depth. Default is False."""
-
 
 class Parameters(
     NodeParameters,

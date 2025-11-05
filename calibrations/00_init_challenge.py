@@ -48,6 +48,7 @@ def custom_param(node: QualibrationNode[Parameters, Quam]):
 # node.machine = Quam.load("C:/git/SQA-2025-Conference/iqcc-calibration/reference_state_qolab/")
 download_state_and_wiring("arbel") 
 node.machine = Quam.load()
+node.machine.active_qubit_names = ["qD1", "qD2"]
 
 
 # %% {Shuffle_state}
